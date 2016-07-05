@@ -3,7 +3,7 @@ package framework.base;
 import java.util.List;
 
 /**
- * Created by SolarisD on 2016/05/16.
+ * @author Solaliyah
  */
 public interface Input {
     public static class KeyEvent {
