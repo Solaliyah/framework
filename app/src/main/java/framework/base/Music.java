@@ -1,6 +1,7 @@
 package framework.base;
 
 /**
+※ ストップやループなど、音や音楽に様々な操作をするinterfaceです。
  * Created by SolarisD on 2016/05/16.
  */
 public interface Music {
@@ -9,7 +10,10 @@ public interface Music {
     public void stop();
 
     public void pause();
-
+/※※
+※
+※
+※/
     public void setLooping(boolean looping);
 
     public void setVolume(float volume);
