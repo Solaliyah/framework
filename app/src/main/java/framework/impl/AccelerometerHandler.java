@@ -7,7 +7,8 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-/**
+/** 3軸加速度センサーの管理用classです。
+※ @auther Solaliyah
  * Created by SolarisD on 2016/03/19.
  */
 public class AccelerometerHandler implements SensorEventListener {
