@@ -8,6 +8,7 @@ import framework.math.Vector2;
 
 
 /**
+※ @auther Solaliyah
  * Created by SolarisD on 2016/04/22.
  */
 public class Camera2D {
@@ -37,7 +38,10 @@ public class Camera2D {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
-
+/※
+※画面上でのタッチ座標をワールド座標に変換し、touch.x,yに正しいタッチ座標を入れるメソッドです。
+※@param touch 画面上でのタッチ座標
+/
     public void touchToWorld(Vector2 touch){
         touch.x = (touch.x / (float) glGraphics.getWidth()) * frustmWidth * zoom;
         touch.y = (1 - touch.y / (float) glGraphics.getHeight()) * frustmHeight * zoom;
