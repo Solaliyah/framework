@@ -1,6 +1,6 @@
 package framework.gl;
 
-/**
+/**フォント
  * Created by SolarisD on 2016/05/19.
  */
 public class Font {
