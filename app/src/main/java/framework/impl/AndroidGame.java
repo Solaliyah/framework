@@ -20,7 +20,7 @@ import framework.base.Input;
 import framework.base.Screen;
 
 
-/**
+/** @auther Solaliyah
  * Created by SolarisD on 2016/03/22.
  */
 public abstract class AndroidGame extends Activity implements Core {

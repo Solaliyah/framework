@@ -1,7 +1,8 @@
 package framework.math;
 
-/**
- * Created by SolarisD on 2016/04/22.
+/**2D空間でのCircle型とRectangle型が片方の内側に入っているかを判定するclassです。
+ * @auther Solaliyah
+※ TODO 点も実装する?
  */
 public class OverlapTester {
     public boolean overlapCircle(Circle c1, Circle c2){
@@ -10,7 +11,7 @@ public class OverlapTester {
         return distance <= radiusSum * radiusSum;
     }
 
-    public static boolean overlapRectangles(Rectangle r1, Rectangle r2){
+    public static boolean isOverlapRectangles(Rectangle r1, Rectangle r2){
         if(r1.lowerLeft.x < r2.lowerLeft.x + r2.width &&
            r1.lowerLeft.x + r1.width > r2.lowerLeft.x&&
            r1.lowerLeft.y < r2.lowerLeft.y + r2.height &&
