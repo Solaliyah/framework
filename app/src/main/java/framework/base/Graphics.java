@@ -4,6 +4,7 @@ import android.graphics.Path;
 
 /**
  * 画面の塗りつぶし、簡単な図形、viewの縦横幅を返すメソッドを持つinterfaceです。
+
  ※colorクラスのconvertを使うと簡単に引数のcolorを渡せる。
  * @author Solaliyah
  */
