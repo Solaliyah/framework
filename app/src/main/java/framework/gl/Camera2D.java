@@ -47,7 +47,7 @@ public class Camera2D {
         touch.y = (1 - touch.y / (float) glGraphics.getHeight()) * frustmHeight * zoom;
         touch.add(position).sub(frustmWidth * zoom / 2, frustmHeight * zoom /2);
     }
-
+// TODO ここで書かずにtouchクラスで書くべき
     public void distanceToWorld(TouchEvent touchEvent){
         touchEvent.distanceX = ( touchEvent.distanceX / (float) glGraphics.getWidth()) * frustmWidth * zoom;
         touchEvent.distanceY = ( touchEvent.distanceY / (float) glGraphics.getHeight()) * frustmHeight * zoom;

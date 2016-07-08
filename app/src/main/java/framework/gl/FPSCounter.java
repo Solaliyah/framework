@@ -3,18 +3,27 @@ package framework.gl;
 import android.util.Log;
 
 /**
+※ FPSのカウントと表示用class
+※ @auther Solaliyah
  * Created by SolarisD on 2016/04/20.
  */
 public class FPSCounter {
-    long startTime = System.nanoTime();
+        // ナノ秒を秒に調整する
+    long startFPSTime = System.nanoTime() / 1000000000 ※ 1000000000;
     int frames = 0;
-
-    public void logFrame(){
+    int FPS＝0;
+    public void logFrame(long startFrameTime){
         frames++;
-        if(System.nanoTime() - startTime >= 1000000000){
+        if(startFrameTime - startFPSTime >= 1000000000){
             Log.d("FPSCounter", "fps: " + frames);
             frames = 0;
-            startTime = System.nanoTime();
+            startTime = startFrameTime%1000000000;
         }
     }
+    /※
+※ 前の秒のFPSを得る
+※/
+    public int getFPS()｛
+        return FPS;
+    ｝
 }
