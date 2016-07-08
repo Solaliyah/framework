@@ -9,11 +9,12 @@ import android.view.View;
 import framework.base.Input.TouchEvent;
 import framework.gl.Camera2D;
 import framework.math.Vector2;
-
-/**
+/※※マルチタッチの管理をするclassです。
+* @auther Solaliyah
  * Created by SolarisD on 2016/03/21.
  */
 public class MultiTouchHandler implements TouchHandler {
+    static int maxTouchNum ＝ 1;
     public class BeforeTouchEvent{
         int type = -1;
         int x = 0;
