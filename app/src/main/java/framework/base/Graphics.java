@@ -3,7 +3,8 @@ package framework.base;
 import android.graphics.Path;
 
 /**
- *
+ * 画面の塗りつぶし、簡単な図形、viewの縦横幅を返すメソッドを持つinterfaceです。
+ *colorクラスのconvertを使うと簡単に引数のcolorを渡せる。
  * @author Solaliyah
  */
 public interface Graphics {
@@ -12,7 +13,10 @@ public interface Graphics {
     }
 
     public Pixmap newPixmap(String fileName, PixmapFormat format);
-
+    /*
+    * 画面全体をcolor色で塗りつぶす
+    * @param color 塗りつぶす色を渡します。
+    */
     public void clear(int color);
 
     public void drawPixel(int x, int y, int color);

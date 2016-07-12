@@ -9,11 +9,17 @@ import android.view.View;
 import framework.base.Input.TouchEvent;
 import framework.gl.Camera2D;
 import framework.math.Vector2;
-
-/**
- * Created by SolarisD on 2016/03/21.
- */
+    /**
+     * マルチタッチの管理をするclassです。
+     * @auther Solaliyah
+     * Created by SolarisD on 2016/03/21.
+     */
 public class MultiTouchHandler implements TouchHandler {
+        /*
+        * maxTouchNumはタッチの最大数を格納しています
+        * 最大数の変更はsetMaxTouch(int)メソッドで1~10の間で変更できます。
+        */
+    private static int maxTouch = 1;
     public class BeforeTouchEvent{
         int type = -1;
         int x = 0;
@@ -39,7 +45,12 @@ public class MultiTouchHandler implements TouchHandler {
         beforeTouchEvent = new BeforeTouchEvent();
     }
 
-
+        /**
+         * タッチジェスチャー時の設定をしています。
+         * pointerIndexからpointerIDを得る。pointerIDは実際にタッチしている指のIDです。
+         * pointerIDがmaxTouchより少なかった場合のみtouchEventに情報を渡す。
+         * TODO returnはtrueとfalseどちらがよいのか？
+         */
     private final GestureDetector.SimpleOnGestureListener simpleOnGestureListener
                                     = new GestureDetector.SimpleOnGestureListener() {
 
@@ -49,7 +60,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if(pointerId == 0) {
+            if(pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_DOWN;
                 touchEvent.pointer = pointerId;
                 touchEvent.x = touchX = (int) (event.getX(pointerIndex) * scaleX);
@@ -65,7 +76,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if(pointerId == 0) {
+            if(pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_SINGLETAP_UP;
                 touchEvent.pointer = pointerId;
                 touchEvent.x = touchX = (int) (event.getX(pointerIndex) * scaleX);
@@ -81,7 +92,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if (pointerId == 0) {
+            if (pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_SHORT_HOLD;
                 touchEvent.pointer = pointerId;
                 touchEvent.x = touchX = (int) (event.getX(pointerIndex) * scaleX);
@@ -96,7 +107,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if (pointerId == 0) {
+            if (pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_LONG_HOLD;
                 touchEvent.pointer = pointerId;
                 touchEvent.x = touchX = (int) (event.getX(pointerIndex) * scaleX);
@@ -111,7 +122,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if(pointerId == 0) {
+            if(pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_DRAGGED;
                 touchEvent.pointer = pointerId;
                 touchEvent.distanceX = distanceX;
@@ -130,7 +141,7 @@ public class MultiTouchHandler implements TouchHandler {
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if(pointerId == 0) {
+            if(pointerId < maxTouch) {
                 touchEvent.type = TouchEvent.TOUCH_Fling;
                 touchEvent.pointer = pointerId;
                 touchEvent.x = touchX = (int) (event.getX(pointerIndex) * scaleX);
@@ -145,13 +156,14 @@ public class MultiTouchHandler implements TouchHandler {
     };
     @Override
     public boolean onTouch(View v, MotionEvent event){
+        Log.d("TouchEvent","onTouch");
         synchronized (this) {
             int action = event.getAction() & MotionEvent.ACTION_MASK;
             int pointerIndex =
                     (event.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK) >>
                             MotionEvent.ACTION_POINTER_INDEX_SHIFT;
             int pointerId = event.getPointerId(pointerIndex);
-            if(pointerId == 0) {
+            if(pointerId < maxTouch) {
                 gestureDetector.onTouchEvent(event);
 
                 switch (action) {
@@ -206,14 +218,20 @@ public class MultiTouchHandler implements TouchHandler {
             return touchEvent;
         }
     }
-
+        /**
+         *  前フレームのTouchEventにより現在のTouchEventを修正した後、beforeTouchEventに現在のTouchEventを入れます。
+         */
     private void touchEventChecker(){
+        //  TODO　この部分の処理の意味がわからない
         if(beforeTouchEvent.type == TouchEvent.TOUCH_UP || beforeTouchEvent.type == TouchEvent.TOUCH_SINGLETAP_UP)
             if(touchEvent.type == TouchEvent.TOUCH_UP || touchEvent.type == TouchEvent.TOUCH_SINGLETAP_UP) {
                 touchEvent.type = TouchEvent.NON_TOUCH;
                 Log.d("touchEventChecker", "NON_TOUCH");
             }
-
+        /**
+         * 前フレームでドラッグをしていて現在のフレームと座標が変わらない場合
+         * ホールドとみなす。
+         */
         if(beforeTouchEvent.type == TouchEvent.TOUCH_DRAGGED && touchEvent.type == TouchEvent.TOUCH_DRAGGED)
             if(beforeTouchEvent.x == touchEvent.x && beforeTouchEvent.y == touchEvent.y) {
                 touchEvent.type = TouchEvent.TOUCH_HOLD;
@@ -226,5 +244,9 @@ public class MultiTouchHandler implements TouchHandler {
         beforeTouchEvent.pointer = touchEvent.pointer;
 
     }
+
+        public void setMaxTouch(int maxNum){
+            maxTouch = maxNum;
+        }
 
 }

@@ -3,7 +3,9 @@ package framework.base;
 import java.util.List;
 
 /**
+ *
  * @author Solaliyah
+ *
  */
 public interface Input {
     public static class KeyEvent {

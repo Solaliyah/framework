@@ -1,6 +1,7 @@
 package framework.math;
 
 /**
+※ @auther 長方形の情報の格納用classです。
  * Created by SolarisD on 2016/04/22.
  */
 public class Rectangle {

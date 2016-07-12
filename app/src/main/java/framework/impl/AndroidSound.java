@@ -23,6 +23,11 @@ public class AndroidSound  implements Sound {
     }
 
     @Override
+    public void play(float leftVolume, float rightVolume){
+        soundPool.play(soundId, leftVolume, rightVolume, 0, 0, 1);
+    }
+
+    @Override
     public void dispose(){
         soundPool.unload(soundId);
     }

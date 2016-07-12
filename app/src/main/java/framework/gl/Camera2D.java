@@ -37,13 +37,16 @@ public class Camera2D {
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
     }
-
+    /**
+    *画面上でのタッチ座標をワールド座標に変換し、touch.x,yに正しいタッチ座標を入れるメソッドです。
+    *@param touch 画面上でのタッチ座標
+    */
     public void touchToWorld(Vector2 touch){
         touch.x = (touch.x / (float) glGraphics.getWidth()) * frustmWidth * zoom;
         touch.y = (1 - touch.y / (float) glGraphics.getHeight()) * frustmHeight * zoom;
         touch.add(position).sub(frustmWidth * zoom / 2, frustmHeight * zoom /2);
     }
-
+    // TODO ここで書かずにtouchクラスで書くべき
     public void distanceToWorld(TouchEvent touchEvent){
         touchEvent.distanceX = ( touchEvent.distanceX / (float) glGraphics.getWidth()) * frustmWidth * zoom;
         touchEvent.distanceY = ( touchEvent.distanceY / (float) glGraphics.getHeight()) * frustmHeight * zoom;

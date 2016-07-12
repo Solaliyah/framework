@@ -4,7 +4,8 @@ import framework.base.Core;
 import framework.base.Screen;
 
 /**
- * Created by SolarisD on 2016/05/19.
+ *
+ * @author Solaliyah
  */
 public abstract class GLScreen extends Screen {
     protected final GLGraphics glGraphics;

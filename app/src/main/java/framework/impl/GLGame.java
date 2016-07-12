@@ -103,7 +103,7 @@ public abstract class GLGame extends Activity implements Core, Renderer{
         }
 
         if(state == GLGameState.Running){
-            float deltaTime = (System.nanoTime() - startFrameTime) / 1000000000.0f;
+            long deltaTime = System.nanoTime() - startFrameTime;
             startFrameTime = System.nanoTime();
 
             screen.update(startFrameTime, deltaTime);

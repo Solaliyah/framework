@@ -1,7 +1,8 @@
 package framework.math;
 
 /**
- * Created by SolarisD on 2016/04/20.
+※ x,y情報と向きを管理するclassです。
+※ @auther Solaliyah
  */
 public class Vector2 {
     public static float TO_RADIANS = (1 / 180.0f) * (float) Math.PI;
@@ -87,7 +88,7 @@ public class Vector2 {
         return angle;
     }
 
-    public Vector2 retate(float angle){
+    public Vector2 rotate(float angle){
         float rad = angle * TO_RADIANS;
         float cos = (float)Math.cos(rad);
         float sin = (float)Math.sin(rad);
