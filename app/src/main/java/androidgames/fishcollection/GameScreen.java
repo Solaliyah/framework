@@ -83,9 +83,9 @@ public class GameScreen extends GLScreen {
     }
 
     @Override
-    public void update(long startFrameTime, float deltaTime) {
-        if (deltaTime > 0.1f)
-            deltaTime = 0.1f;
+    public void update(long startFrameTime, long deltaTime) {
+        if (deltaTime > 100000000)
+            deltaTime = 100000000;
 
         switch (gameState) {
             case GAME_READY:
@@ -195,7 +195,7 @@ public class GameScreen extends GLScreen {
     }
 
     @Override
-    public void present(long startFrameTime, float deltaTime){
+    public void present(long startFrameTime, long deltaTime){
         GL10 gl = glGraphics.getGL();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL10.GL_TEXTURE_2D);
@@ -300,7 +300,7 @@ public class GameScreen extends GLScreen {
 
         gl.glDisable(GL10.GL_BLEND);
 
-        fpsCounter.logFrame();
+        fpsCounter.logFrame(startFrameTime);
     }
 
     private void presentReady(long startFrameTime){

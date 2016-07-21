@@ -37,7 +37,7 @@ public class MainMenuScreen extends GLScreen {
     }
 
     @Override
-    public void update(long startFrameTime, float deltaTime){
+    public void update(long startFrameTime, long deltaTime){
        TouchEvent touchEvent = core.getInput().getTouchEvents();
         core.getInput().getKeyEvents();
 
@@ -64,7 +64,7 @@ public class MainMenuScreen extends GLScreen {
     }
 
     @Override
-    public void present(long startFrameTime, float deltaTime){
+    public void present(long startFrameTime, long deltaTime){
         GL10 gl = glGraphics.getGL();
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         guiCam.setViewportAndMatrices();
